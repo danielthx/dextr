@@ -46,7 +46,10 @@ class DextrDataset (torch.utils.data.Dataset):
             self.obj_meta_indices, self.obj_meta_outlines = self._build_object_metadata(progress_fn)
             if object_meta_path is not None:
                 obj_meta = dict(indices=self.obj_meta_indices, outlines=self.obj_meta_outlines)
-                pickle.dump(obj_meta, open(object_meta_path, 'wb'))
+                try:
+                    pickle.dump(obj_meta, open(object_meta_path, 'wb'))
+                except:
+                    pickle.dump(obj_meta, open(object_meta_path.split('/')[-1], 'wb'))
 
         self.transform = transform
 
