@@ -139,7 +139,7 @@ def dextr_resunet101(num_classes=1):
 
     # Create new input `conv1` layer that takes a 4-channel input
     new_conv1 = nn.Conv2d(4, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-    new_conv1.weight[:, :3, :, :] = model.base_model.conv1.weight
+    new_conv1.weight.data[:, :3, :, :] = model.base_model.conv1.weight.data
     model.base_model.conv1.weight.data = new_conv1.weight.data
 
     # Setup new and pre-trained parameters for fine-tuning
